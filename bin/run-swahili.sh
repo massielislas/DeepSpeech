@@ -18,7 +18,7 @@ fi
 
 # # Force only one visible device because we have a single-sample dataset
 # # and when trying to run on multiple devices (like GPUs), this will break
-export CUDA_VISIBLE_DEVICES=0
+export CUDA_VISIBLE_DEVICES=1
 
 python -u DeepSpeech.py --noshow_progressbar \
   --train_files data/swahili/swahili_training.csv \
