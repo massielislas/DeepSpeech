@@ -14,11 +14,12 @@ def _download_and_preprocess_data(data_dir):
   print("OVERVIEW HEAD")
   print(overview_of_recordings.head())
 
+  print("Training data preparation")
   swahili_training = pandas.DataFrame()
 
   for filename in os.listdir(data_dir + "/recordings/train/"):
     if filename.endswith(".wav"):
-      # print(filename)
+      print(filename)
       recording_row = overview_of_recordings.loc[filename]
       recording_row[['_unit_id']] = os.path.getsize(data_dir + "/recordings/train/" + filename)
       swahili_training = swahili_training.append(recording_row[['_unit_id', 'sw_transcription']])
@@ -28,6 +29,8 @@ def _download_and_preprocess_data(data_dir):
   swahili_training = swahili_training.rename(columns={"index": "wav_filename", "_unit_id": "wav_filesize", "sw_transcription": "transcript"}, errors="raise")
   swahili_training['wav_filename'] = swahili_training['wav_filename'].apply(lambda x: "recordings/train/" + x)
   swahili_training.to_csv(os.path.join(data_dir, "swahili_training.csv"), index=False)
+
+  print("test data preparation")
 
 if __name__ == "__main__":
     _download_and_preprocess_data(sys.argv[1])
